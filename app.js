@@ -1,6 +1,7 @@
 "use strict"
 
 var callForExternal = require("./external"); // bind external lib
+var greetLib = require("./lib");
 
 callForExternal["firstName"] = "Oleg";
 callForExternal.sayHello();
@@ -17,3 +18,6 @@ PersonConstactor.prototype.greet = function(){
 
 var sergey = new PersonConstactor("Sergey", "Melentyev");
 sergey.greet();
+
+greetLib.english();
+greetLib.spanish();
