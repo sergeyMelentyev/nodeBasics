@@ -1,23 +1,13 @@
 "use strict"
 
-var callForExternal = require("./external"); // bind external lib
-var greetLib = require("./lib");
+var callForExternal = require("./external");	// bind external file
+var callExternalConstruct = require("./externalFunc");	// bind external function constructor
+var greetLib = require("./lib");	// bind external lib
 
-callForExternal["firstName"] = "Oleg";
-callForExternal.sayHello();
+callForExternal["firstName"] = "Oleg";	// change property in external file
+callForExternal.sayHello();	// call external method
 
-// function constructor
-function PersonConstactor(firstname, lastname){
-	this.firstname = firstname;
-	this.lastname = lastname;
-};
-// function prototype, adding new functionality to constractor
-PersonConstactor.prototype.greet = function(){
-	console.log("Hello, " + this.firstname + " " + this.lastname);
-};
+callExternalConstruct.greet();	// call external prototype method
 
-var sergey = new PersonConstactor("Sergey", "Melentyev");
-sergey.greet();
-
-greetLib.english();
-greetLib.spanish();
+greetLib.english();	// call external lib
+greetLib.spanish();	// call external lib

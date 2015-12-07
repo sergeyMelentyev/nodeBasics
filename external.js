@@ -4,9 +4,9 @@ var person = {
 	firstName: "Sergey",
 	lastName: "Melentyev",
 	sayHello: function(){
-		console.log("My name is " + this.firstName + " ");	
+		console.log("Call fron external file. My name is " + this.firstName + " ");	
 	}
 };
 
 
-module.exports = person; // make external lib visible
+module.exports = person; // make external file visible
