@@ -8,5 +8,4 @@ var person = {
 	}
 };
 
-
 module.exports = person; // make external file visible
