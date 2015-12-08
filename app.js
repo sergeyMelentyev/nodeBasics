@@ -6,6 +6,7 @@ var CallNewExternalConstruct = require("./externalConstruct");	// bind external 
 var greetLib = require("./lib");	// bind external lib
 var util = require("util");	// call native(core) module
 var Emitter = require("./emitter"); //call emitter constructor
+var CoreEmitter = require("events");
 
 callForExternal["firstName"] = "Oleg";	// change property in external file
 callForExternal.sayHello();	// call external method
@@ -18,8 +19,14 @@ externalConstruct.greet();	// call new obj
 greetLib.english();	// call external lib
 greetLib.spanish();	// call external lib
 
-var emtr = new Emitter();	// create new obj
+var emtr = new Emitter();	// create a custom event emiter
 emtr.on("greet", function(){	// listen to event and execute a function
-	console.log("Event emitter fire");
+	console.log("Event emiter fire");
 });
-emtr.emit("greet");	// emit event
+emtr.emit("greet");	// emit (create) an event
+
+var coreEmtr = new CoreEmitter();	// create a core build-in emitter
+coreEmtr.on("greetings", function(){
+	console.log("Core event lib fire");
+});
+coreEmtr.emit("greetings");
