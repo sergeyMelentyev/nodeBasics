@@ -1,4 +1,5 @@
 "use strict"
+
 var EventEmmiter = require("events"); // add core lib for events
 var util = require("util"); // add core lib for utility
 
@@ -44,4 +45,3 @@ function Policeman(){
 util.inherits(Policeman, Person); // Make Policeman inherits props and methods from Person
 var officer = new Policeman();
 officer.greetGreet();
-
