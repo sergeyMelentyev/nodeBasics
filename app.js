@@ -1,4 +1,7 @@
 "use strict"
+// npm init : specify a working directory and create json npm file
+// npm install <repName> --save : install dependency and add info into npm json
+// npm install : download all dependences from json npm file
 
 var callForExternal = require("./external");	// bind external file
 var callExternalConstruct = require("./externalFunc");	// bind external function constructor
