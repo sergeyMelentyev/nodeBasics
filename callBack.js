@@ -1,4 +1,4 @@
-"use strick"
+"use strick";
 
 function greet(callBack){
 	console.log("Hello World");

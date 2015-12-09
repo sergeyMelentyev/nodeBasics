@@ -1,4 +1,4 @@
-"use strick"
+"use strick";
 
 var person = {
 	firstName: "Sergey",

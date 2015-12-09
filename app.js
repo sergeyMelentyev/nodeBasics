@@ -1,7 +1,9 @@
-"use strict"
+"use strict";
 // npm init : specify a working directory and create json npm file
 // npm install <repName> --save : install dependency and add info into npm json
 // npm install : download all dependences from json npm file
+// npm update : upgrade for new versions
+// npm install -g nodemon : install globally on system node monitor utility
 
 var callForExternal = require("./external");	// bind external file
 var callExternalConstruct = require("./externalFunc");	// bind external function constructor

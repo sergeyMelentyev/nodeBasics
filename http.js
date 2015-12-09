@@ -1,7 +1,8 @@
-"use strick"
+"use strick";
 
 var http = require("http");
 var fs = require("fs");
+var port = process.env.PORT || 8080;	// if server port exist or local host
 
 http.createServer(function(req, res){
 	if (req.url === "/") {
@@ -18,4 +19,4 @@ http.createServer(function(req, res){
 		res.writeHead(404);	// responce for incorrect url
 		res.end();
 	}
-}).listen(8080, "127.0.0.1");
+}).listen(port);

@@ -1,4 +1,4 @@
-"use strict"
+"use strict";
 
 var EventEmmiter = require("events"); // add core lib for events
 var util = require("util"); // add core lib for utility

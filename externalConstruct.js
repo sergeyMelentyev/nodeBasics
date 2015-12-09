@@ -1,4 +1,4 @@
-"use strick"
+"use strick";
 
 // function constructor
 function NewPersonConstactor(firstname, lastname){
