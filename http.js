@@ -3,55 +3,50 @@
 var http = require("http");
 var fs = require("fs");
 var path = require('path');
+var url = require('url');
 var port = process.env.PORT || 8080;
 
-http.createServer(function (request, response) {
-    var filePath = '.' + request.url;
-    if (filePath === './') {
-		fs.createReadStream(__dirname + "/index.htm").pipe(response);
-    } else if (filePath === "./api") {
-		var obj = {
-			firstName: "Sergey",
-			lastName: "Melentyev"
-		};
-		response.end(JSON.stringify(obj));
-	}
-    var extname = path.extname(filePath);
-    var contentType = 'text/html';
-    switch (extname) {
-        case '.js':
-            contentType = 'text/javascript';
-            break;
-        case '.css':
-            contentType = 'text/css';
-            break;
-        case '.json':
-            contentType = 'application/json';
-            break; 
-        case '.png':
-            contentType = 'image/png';
-            break;      
-        case '.jpg':
-            contentType = 'image/jpg';
-            break;
-    }
-    fs.readFile(filePath, function(error, content) {
-        if (error) {
-            if(error.code == 'ENOENT'){
-                fs.readFile('./404.html', function(error, content) {
-                    response.writeHead(200, { 'Content-Type': contentType });
-                    response.end(content, 'utf-8');
-                });
-            }
-            else {
-                response.writeHead(500);
-                response.end('Sorry, check with the site admin for error: '+error.code+' ..\n');
-                response.end(); 
-            }
-        }
-        else {
-            response.writeHead(200, { 'Content-Type': contentType });
-            response.end(content, 'utf-8');
-        }
-    });
+// Array of Mime Types
+var mimeTypes = {
+    "html" : "text/html",
+    "css" : "text/css",
+    "js" : "text/javascript",
+    "json" : "application/json",
+    "jpg" : "image/jpeg",
+    "jpeg" : "image/jpeg",
+    "png" : "image/png",
+};
+
+// Create a Server
+http.createServer(function(req, res){
+   var uri = url.parse(req.url).pathname;
+   var fileName = path.join(process.cwd(), uri);
+   var stats;
+   
+   try {
+       stats = fs.lstatSync(fileName);
+   } catch (error) {
+       console.log(error);
+       res.writeHead(404, {'Content-Type': 'text/plain'});
+       res.write('404 Not Found \n');
+       res.end();
+       return;
+   }
+   
+   // Check if file/directory
+   if(stats.isFile()){
+       var mimeType = mimeTypes[path.extname(fileName).split(".").reverse()[0]];
+       res.writeHead(200, {'Content-Type': mimeType});
+       var fileStream = fs.createReadStream(fileName);
+       fileStream.pipe(res);
+   } else if (stats.isDirectory()){
+       res.writeHead(302, {
+           "Location": "index.htm"
+       });
+       res.end();
+   } else {
+       res.writeHead(500, {'Content-Type': 'text/plain'});
+       res.write("500 Internal Error \n");
+       res.end();
+   }
 }).listen(port);
